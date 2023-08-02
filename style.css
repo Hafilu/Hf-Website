@@ -1,0 +1,61 @@
+
+
+@media only screen and (max-width: 760px) {
+  /* For mobile phones: */
+  .column-width {
+    display: flex;
+  }
+  .card-style {
+    width: 18rem;
+    margin:auto;
+  }
+  
+}
+
+@media (min-width: 170px) and (max-width: 330px) {
+    /* For mobile phones: */
+    .col-width {
+      overflow-x: hidden;
+      box-sizing: border-box;
+      width: 400%;
+    }
+    .column-width {
+      display: block;
+    }
+    .card-style {
+      width: 18rem;
+      margin: auto;
+    }
+    
+  }
+
+@media only screen and (max-width: 170px) {
+  /* For mobile phones: */
+  
+  .card-style {
+    width: 18rem;
+    margin: auto;
+  }
+  .col-width {
+    overflow-x: hidden;
+    box-sizing: border-box;
+    width: 400%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* For mobile phones: */
+  
+ .navbar-name{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  padding-left: 10px;
+  padding-right: 10px;
+ }
+ .navbar-link{
+  padding-left: 20px;
+ }
+}
+
