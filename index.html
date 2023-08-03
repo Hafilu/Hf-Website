@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link
       rel="stylesheet"
@@ -242,7 +242,7 @@
         <h1 class="text-center">Contact me</h1>
         <div class="row">
           <div class="col-md-12 pt-3">
-            <form id="submit-form" action="">
+            <form id="submit-form" action="" novalidate>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputname">Name</label>
@@ -252,7 +252,11 @@
                     name="name"
                     class="form-control"
                     placeholder="Name"
+                    required
                   />
+                  <small id="usercheck" style="color: red">
+                    *Name required
+                  </small>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputPassword4">Place</label>
@@ -262,7 +266,10 @@
                     name="place"
                     class="form-control"
                     placeholder="Place"
+                    required
+             
                   />
+                  <small id="placecheck" style="color: red">*Place required</small>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Email</label>
@@ -272,7 +279,10 @@
                     name="email"
                     class="form-control"
                     placeholder="Email"
+                    required
+                   
                   />
+                  <small id="emailcheck" style="color: red">*Email required</small>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputmobile">Mobile</label>
@@ -282,7 +292,12 @@
                     name="mobile"
                     class="form-control"
                     placeholder="Phone no"
+                    required
+                
                   />
+                  <small id="numbercheck" style="color: red">
+                    *Mobile number required
+                  </small>
                 </div>
               </div>
               <div class="form-group">
@@ -294,14 +309,18 @@
                   placeholder="Type your message here..."
                   cols="30"
                   rows="6"
+                  required
+                  
                 ></textarea>
+                <small id="messagecheck" style="color: red">
+                  *This feild is required
+                </small>
               </div>
               <div class="form-group text-center">
                 <button type="submit" style="width: 100%" class="btn btn-grey">
                   Submit
                 </button>
-                
-         
+              </div>
             </form>
           </div>
         </div>
@@ -342,33 +361,188 @@
       </div>
     </footer>
 
-    
     <script
       src="https://kit.fontawesome.com/568f3e5e26.js"
       crossorigin="anonymous"
     ></script>
 
     <script>
-      $("#submit-form").submit((e) => {
-        e.preventDefault();
-        $.ajax({
-          url: "https://script.google.com/macros/s/AKfycby-yMaYkCa4fUi1HTb7HKMvyKY-gUHSzRbyO4mQqMA6JlmZvKTMzEZiWN6maKji74Q6/exec",
-          data: $("#submit-form").serialize(),
-          method: "post",
-          success: function (response) {
-            alert("Form submitted successfully");
-            window.location.reload();
-            //window.location.href="https://google.com"
-          },
-          error: function (err) {
-            alert("Something Error");
-          },
+      // Document is ready
+      $(document).ready(function () {
+        // Validate Username
+        $("#usercheck").hide();
+        let nameError = true;
+        $("#inputname").keyup(function () {
+          validateName();
         });
-      });
 
-      
+        function validateName() {
+          let usernameValue = $("#inputname").val();
+          var namePattern = /^[A-Za-z\s'-]+$/;
+          if (usernameValue.length == "") {
+            $("#usercheck").show();
+            nameError = false;
+            return false;
+          } else if (usernameValue.length < 3 || usernameValue.length > 10) {
+            $("#usercheck").show();
+            $("#usercheck").html(
+              "*length of name must be between 3 and 10"
+            );
+            nameError = false;
+            return false;
+          } else if (!namePattern.test(usernameValue)) {
+            $("#usercheck").show();
+            $("#usercheck").html(
+              "*Invalid format"
+            );
+            nameError = false;
+            return false;
+          } else {
+            $("#usercheck").hide();
+            nameError= true;
+          }
+        }
+
+        // Validate place
+        $("#placecheck").hide();
+        let placeError = true;
+        $("#inputPassword4").keyup(function () {
+          validatePlacename();
+        });
+
+        function validatePlacename() {
+          let placenameValue = $("#inputPassword4").val();
+          var placePattern = /^[A-Za-z\s'-]+$/;
+          if (placenameValue.length == "") {
+            $("#placecheck").show();
+            placeError = false;
+            return false;
+          } else if (placenameValue.length < 3 || placenameValue.length > 10) {
+            $("#placecheck").show();
+            $("#placecheck").html("*length of place must be between 3 and 10");
+            placeError = false;
+            return false;
+          }else if (!placePattern.test(placenameValue)) {
+            $("#placecheck").show();
+            $("#placecheck").html("*Invalid format");
+            placeError = false;
+            return false;
+          }
+           else {
+            $("#placecheck").hide();
+            placeError = true;
+          }
+        }
+
+        //Validate Email
+
+        $("#emailcheck").hide();
+        let emailError = true;
+        $("#inputEmail4").keyup(function () {
+          validateEmail();
+        });
+
+        function validateEmail() {
+          let emailValue = $("#inputEmail4").val();
+          let regex =
+            /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
+          if (emailValue.length == "") {
+            $("#emailcheck").show();
+            emailError = false;
+            return false;
+          } else if (regex.test(emailValue)) {
+            $("#emailcheck").hide();
+            emailError = true;
+          } else {
+            $("#emailcheck").show();
+            $("#emailcheck").html("*Invalid email id");
+            emailError = false;
+          }
+        }
+
+        // Validate mobile
+        $("#numbercheck").hide();
+        let numberError = true;
+        $("#inputmobile").keyup(function () {
+          validateNumber();
+        });
+
+        function validateNumber() {
+          let numberValue = $("#inputmobile").val();
+          var mobileNumberPattern = /^\d{10}$/;
+          if (numberValue.length == "") {
+            $("#numbercheck").show();
+            numberError = false;
+            return false;
+          } else if (!mobileNumberPattern.test(numberValue)) {
+            $("#numbercheck").show();
+            $("#numbercheck").html("*Invalid mobile number");
+            numberError = false;
+            return false;
+          } else {
+            $("#numbercheck").hide();
+            numberError=true;
+          }
+        }
+
+        // Validate message
+        $("#messagecheck").hide();
+        let messageError = true;
+        $("#inputAddress").keyup(function () {
+          validateMessage();
+        });
+
+        function validateMessage() {
+          let messageValue = $("#inputAddress").val();
+          if (messageValue.length == "") {
+            $("#messagecheck").show();
+            messageError = false;
+            return false;
+          } else {
+            $("#messagecheck").hide();
+            messageError=true;
+          }
+        }
+
+       // Submit button
+       $(".btn-grey").click(function (e) {
+           
+           validateName();
+           validatePlacename();
+           validateNumber();
+           validateEmail();
+           validateMessage();
+          
+           if (
+             nameError == true &&
+             placeError == true &&
+             numberError == true &&
+             messageError == true &&
+             emailError == true
+           ) {
+             $("#submit-form").submit((e) => {
+               e.preventDefault();
+               var xhr = $.ajax({
+                 url: "https://script.google.com/macros/s/AKfycby-yMaYkCa4fUi1HTb7HKMvyKY-gUHSzRbyO4mQqMA6JlmZvKTMzEZiWN6maKji74Q6/exec",
+                 data: $("#submit-form").serialize(),
+                 method: "post",
+                 success: function (response) {
+                   alert("Form submitted successfully");
+                   window.location.reload();
+                   //window.location.href="https://google.com"
+                 },
+                 error: function (err) {
+                   alert("Something Error");
+                 },
+               });
+             });
+             return true;
+           } else {
+             
+             return false;
+           }
+         });
+       });
     </script>
   </body>
 </html>
-
-
