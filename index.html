@@ -267,9 +267,10 @@
                     class="form-control"
                     placeholder="Place"
                     required
-             
                   />
-                  <small id="placecheck" style="color: red">*Place required</small>
+                  <small id="placecheck" style="color: red"
+                    >*Place required</small
+                  >
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Email</label>
@@ -280,9 +281,10 @@
                     class="form-control"
                     placeholder="Email"
                     required
-                   
                   />
-                  <small id="emailcheck" style="color: red">*Email required</small>
+                  <small id="emailcheck" style="color: red"
+                    >*Email required</small
+                  >
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputmobile">Mobile</label>
@@ -293,7 +295,6 @@
                     class="form-control"
                     placeholder="Phone no"
                     required
-                
                   />
                   <small id="numbercheck" style="color: red">
                     *Mobile number required
@@ -310,7 +311,6 @@
                   cols="30"
                   rows="6"
                   required
-                  
                 ></textarea>
                 <small id="messagecheck" style="color: red">
                   *This feild is required
@@ -385,21 +385,17 @@
             return false;
           } else if (usernameValue.length < 3 || usernameValue.length > 10) {
             $("#usercheck").show();
-            $("#usercheck").html(
-              "*length of name must be between 3 and 10"
-            );
+            $("#usercheck").html("*length of name must be between 3 and 10");
             nameError = false;
             return false;
           } else if (!namePattern.test(usernameValue)) {
             $("#usercheck").show();
-            $("#usercheck").html(
-              "*Invalid format"
-            );
+            $("#usercheck").html("*Invalid format");
             nameError = false;
             return false;
           } else {
             $("#usercheck").hide();
-            nameError= true;
+            nameError = true;
           }
         }
 
@@ -422,13 +418,12 @@
             $("#placecheck").html("*length of place must be between 3 and 10");
             placeError = false;
             return false;
-          }else if (!placePattern.test(placenameValue)) {
+          } else if (!placePattern.test(placenameValue)) {
             $("#placecheck").show();
             $("#placecheck").html("*Invalid format");
             placeError = false;
             return false;
-          }
-           else {
+          } else {
             $("#placecheck").hide();
             placeError = true;
           }
@@ -481,7 +476,7 @@
             return false;
           } else {
             $("#numbercheck").hide();
-            numberError=true;
+            numberError = true;
           }
         }
 
@@ -500,49 +495,57 @@
             return false;
           } else {
             $("#messagecheck").hide();
-            messageError=true;
+            messageError = true;
           }
         }
 
-       // Submit button
-       $(".btn-grey").click(function (e) {
-           
-           validateName();
-           validatePlacename();
-           validateNumber();
-           validateEmail();
-           validateMessage();
-          
-           if (
-             nameError == true &&
-             placeError == true &&
-             numberError == true &&
-             messageError == true &&
-             emailError == true
-           ) {
-             $("#submit-form").submit((e) => {
-               e.preventDefault();
-               var xhr = $.ajax({
-                 url: "https://script.google.com/macros/s/AKfycby-yMaYkCa4fUi1HTb7HKMvyKY-gUHSzRbyO4mQqMA6JlmZvKTMzEZiWN6maKji74Q6/exec",
-                 data: $("#submit-form").serialize(),
-                 method: "post",
-                 success: function (response) {
-                   alert("Form submitted successfully");
-                   window.location.reload();
-                   //window.location.href="https://google.com"
-                 },
-                 error: function (err) {
-                   alert("Something Error");
-                 },
-               });
-             });
-             return true;
-           } else {
-             
-             return false;
-           }
-         });
-       });
+        // Submit button
+        $(".btn-grey").click(function (e) {
+          validateName();
+          validatePlacename();
+          validateNumber();
+          validateEmail();
+          validateMessage();
+
+          if (
+            nameError == true &&
+            placeError == true &&
+            numberError == true &&
+            messageError == true &&
+            emailError == true
+          ) {
+            $("#submit-form").submit((e) => {
+              e.preventDefault();
+              var xhr = $.ajax({
+                url: "https://script.google.com/macros/s/AKfycby-yMaYkCa4fUi1HTb7HKMvyKY-gUHSzRbyO4mQqMA6JlmZvKTMzEZiWN6maKji74Q6/exec",
+                data: $("#submit-form").serialize(),
+                method: "post",
+                success: function (response) {
+                  alert("Form submitted successfully");
+                  window.location.reload();
+                  //window.location.href="https://google.com"
+                },
+                error: function (err) {
+                  alert("Something Error");
+                },
+              });
+            });
+            return true;
+          } else {
+            return false;
+          }
+        });
+      });
     </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
